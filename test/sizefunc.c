@@ -13,16 +13,26 @@
  * Return: a number of type size_t that contain the lenght of the string
  */
 
-size_t sizeof_s(va_list *buffsize, int specoccur)
+size_t sizeof_s(va_list *buffsize)
 {
-	int count;
 	char *string;
 
 	printf("sizeof_s:step1\n");
-	for (count = 1; count < specoccur; count++)
-		va_arg(*buffsize, char *);
 	string = va_arg(*buffsize, char *);
 	printf("sizeof_s:step2: string = %s\n", string);
+	if (string == NULL)
+	{
+		printf("sizeof_s:step3: string length = %ld\n", _strlen("(null)"));
+		return (_strlen("(null)"));
+	}
 	printf("sizeof_s:step3: string length = %ld\n", _strlen(string));
-	return (_strlen(string));
+	return (_strlen(string) - 2);
+}
+
+size_t sizeof_c(va_list *buffsize)
+{
+	char size;
+
+	size = (char)va_arg(*buffsize, int);
+	return (sizeof(size) - 2);
 }

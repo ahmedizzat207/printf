@@ -35,7 +35,8 @@ int _printf(const char *format, ...)
 	printf("printf:step3: return from checker and format is %s\n", format);
 	write(1, format, _strlen(format));
 	printf("printf:step4: format should be printed twice\n");
-	buffsize = _strlen(format);
+	if (format[0] == '%' && buffsize == 1)
+		return (-1);
 	printf("printf:step5: final format size should equel step2 buffsize = %ld\n", buffsize);
 	free((void *)format);
 	return (buffsize);

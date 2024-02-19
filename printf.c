@@ -29,8 +29,12 @@ int _printf(const char *format, ...)
 	va_start(buffstore, format);
 	buffsize = sizecount(format, &buffstore);
 	format = checker(format, arguments, buffsize);
+	if (format[0] == '%' && buffsize == 1)
+	{
+		free((void *)format);
+		return (-1);
+	}
 	write(1, format, _strlen(format));
-	buffsize = _strlen(format);
 	free((void *)format);
 	return (buffsize);
 }

@@ -40,7 +40,7 @@ const char *checker(const char *format, va_list arguments, size_t buffsize)
 		printf("checker:step2: inside first loop charcount = %d format[charcount] = %c\n", charcount, format[charcount]);
 		for (speccount = 0; format[charcount] == '%' && specifiers[speccount].specifier; speccount++)
 		{
-			printf("checker:step3: inside second loop format[charcount] = %c\n", format[charcount]);
+			printf("checker:step3: inside second loop format[charcount] = %c and specifier[speccount].specifier = %c\n", format[charcount], specifiers[speccount].specifier);
 			if (format[charcount + 1] == specifiers[speccount].specifier)
 			{
 				printf("checker:step4: inside condition buffer = %s\n", buffer);
@@ -49,6 +49,7 @@ const char *checker(const char *format, va_list arguments, size_t buffsize)
 				else
 					buffcount = spec_per(buffer, buffcount);
 				charcount += 2;
+				speccount = -1;
 			}
 		}
 		buffer[buffcount] = format[charcount];

@@ -45,6 +45,7 @@ const char *checker(const char *format, va_list arguments, size_t buffsize)
 				else
 					buffcount = spec_per(buffer, buffcount);
 				charcount += 2;
+				speccount = -1;
 			}
 		}
 		buffer[buffcount] = format[charcount];

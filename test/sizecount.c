@@ -20,29 +20,36 @@ size_t sizecount(const char* format, va_list *buffsize)
 {
 	int charcount, speccount, specoccur;
 	size_t buffcount;
-	char specsize[] = {'c', 's', '%', '\0'};
+	counter specsize[] = {
+		{sizeof_c, 'c'},
+		{sizeof_s, 's'},
+		{NULL, '%'},
+		{NULL, '\0'}
+	};
 
 	buffcount = 0;
 	specoccur = 0;
 	printf("sizecount:step1\n");
 	for (charcount = 0; format && format[charcount]; charcount++)
 	{
+		buffcount++;
 		printf("sizecount:step2: buffcount = %ld and format[charcount] = %c\n", buffcount, format[charcount]);
-		for (speccount = 0; format[charcount] == '%' && specsize[speccount]; speccount++)
+		for (speccount = 0; format[charcount] == '%' && specsize[speccount].specifier; speccount++)
 		{
 			printf("sizecount:step3: sepccount = %d\n", speccount);
-			if (format[charcount + 1] == specsize[speccount])
+			if (format[charcount + 1] == specsize[speccount].specifier)
 			{
+				printf("sizecount: inside if specoccur = %d\n", specoccur);
 				specoccur++;
-				if (speccount == 1)
-					buffcount += sizeof_s(buffsize, specoccur) - 2;
+				if (speccount < 2)
+					buffcount += specsize[speccount].specfunc(buffsize);
 				else
 					buffcount--;
 				break;
+
 			}
 
 		}
-		buffcount++;
 	}
 	printf("sizecount:step5: buffcount = %ld\n", buffcount);
 	return (buffcount);

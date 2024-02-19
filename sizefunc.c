@@ -1,25 +1,40 @@
-#include <stdio.h>
 #include <stdarg.h>
 #include "main.h"
 
 /**
  * sizeof_s - The function calculates the size of the string passed to the
  * _printf function as an argument
- * @buffsize: a pointer to a variable of type va_list that contain the strin
+ * @buffsize: a pointer to a variable of type va_list that contain the string
  * to calculate it's length
- * @specoccur: an integer number that hold the previous occurance of other
- * converstion specifiers
  *
- * Return: a number of type size_t that contain the lenght of the string
+ * Return: a number of type size_t that contain the length of the string
  */
 
-size_t sizeof_s(va_list *buffsize, int specoccur)
+size_t sizeof_s(va_list *buffsize)
 {
-	int count;
 	char *string;
 
-	for (count = 1; count < specoccur; count++)
-		va_arg(*buffsize, char *);
 	string = va_arg(*buffsize, char *);
-	return (_strlen(string));
+	if (string == NULL)
+		return (_strlen("(null)"));
+	return (_strlen(string) - 2);
+}
+
+
+/**
+ * sizeof_c - The function execute the va_arg macro to flush the character
+ * contained in the variable argument
+ * @buffsize: a pointer to a variable of type va_list that contain the
+ * character to manage the arguments flow
+ *
+ * Return: a number of type size_t that contain the length of the character
+ * which is -1 because we septeract the 2 converstion characters
+ */
+
+size_t sizeof_c(va_list *buffsize)
+{
+	char size;
+
+	size = (char)va_arg(*buffsize, int);
+	return (sizeof(size) - 2);
 }

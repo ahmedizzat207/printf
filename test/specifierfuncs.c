@@ -42,6 +42,10 @@ int spec_s(char *buffer, va_list arguments, int buffcount)
 	int strcount;
 
 	string = va_arg(arguments, char *);
+	if (string == NULL)
+	{
+		string = "(null)";
+	}
 	for (strcount = 0; string[strcount]; strcount++, buffcount++)
 		buffer[buffcount] = string[strcount];
 	return (buffcount);
