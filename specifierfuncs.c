@@ -54,8 +54,6 @@ int spec_s(char *buffer, va_list arguments, int buffcount)
  * spec_per - The function replace the double percentage signs "%%" with one
  * @buffer: a pointer to a charcter (string) that contain the string format
  * passed to _printf function until the converstion specifier
- * @arguments: a variable of the type va_list that contains the variable
- * arguments passed to _printf
  * @buffcount: an integer contains the buffer characters count
  *
  * Return: an integer contains the last buffer character count after replacing

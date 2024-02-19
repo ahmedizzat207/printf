@@ -11,6 +11,8 @@
  * format string provaided to the _printf function
  * @arguments: a variable of type va_list that contain all the variable
  * arguments passed to the _printf function for converstion
+ * @buffsize: a number of type size_t that contain the total size of the
+ * resulted string to allocate space in the heap
  *
  * Description: The function checks for any occur of converstion specifiers in
  * the format string provied to _printf function and if any found it passes the
@@ -22,33 +24,33 @@
 const char *checker(const char *format, va_list arguments, size_t buffsize)
 {
 	char *buffer;
-	converstion specifiers[] = {
+	converstion spec[] = {
 		{spec_c, 'c'},
 		{spec_s, 's'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
-	int charcount, speccount, buffcount;
+	int ccount, scount, buffcount;
 
 	buffcount = 0;
 	buffer = malloc(buffsize);
 	if (buffer == NULL)
 		return (NULL);
-	for (charcount = 0; format && format[charcount]; charcount++)
+	for (ccount = 0; format && format[ccount]; ccount++)
 	{
-		for (speccount = 0; format[charcount] == '%' && specifiers[speccount].specifier; speccount++)
+		for (scount = 0; format[ccount] == '%' && spec[scount].specifier; scount++)
 		{
-			if (format[charcount + 1] == specifiers[speccount].specifier)
+			if (format[ccount + 1] == spec[scount].specifier)
 			{
-				if (speccount != 2)
-					buffcount = specifiers[speccount].specfunc(buffer, arguments, buffcount);
+				if (scount != 2)
+					buffcount = spec[scount].specfunc(buffer, arguments, buffcount);
 				else
 					buffcount = spec_per(buffer, buffcount);
-				charcount += 2;
-				speccount = -1;
+				ccount += 2;
+				scount = -1;
 			}
 		}
-		buffer[buffcount] = format[charcount];
+		buffer[buffcount] = format[ccount];
 		buffcount++;
 	}
 	return (buffer);

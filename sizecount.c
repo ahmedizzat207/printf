@@ -16,11 +16,11 @@
  * result of _printf function
  */
 
-size_t sizecount(const char* format, va_list *buffsize)
+size_t sizecount(const char *format, va_list *buffsize)
 {
-	int charcount, speccount;
+	int ccount, scount;
 	size_t buffcount;
-	counter specsize[] = {
+	counter spsize[] = {
 		{sizeof_c, 'c'},
 		{sizeof_s, 's'},
 		{NULL, '%'},
@@ -28,14 +28,14 @@ size_t sizecount(const char* format, va_list *buffsize)
 	};
 
 	buffcount = 0;
-	for (charcount = 0; format && format[charcount]; charcount++)
+	for (ccount = 0; format && format[ccount]; ccount++)
 	{
-		for (speccount = 0; format[charcount] == '%' && specsize[speccount].specifier; speccount++)
+		for (scount = 0; format[ccount] == '%' && spsize[scount].specifier; scount++)
 		{
-			if (format[charcount + 1] == specsize[speccount].specifier)
+			if (format[ccount + 1] == spsize[scount].specifier)
 			{
-				if (speccount < 2)
-					buffcount += specsize[speccount].specfunc(buffsize);
+				if (scount < 2)
+					buffcount += spsize[scount].specfunc(buffsize);
 				else
 					buffcount--;
 				break;
