@@ -31,6 +31,8 @@ int _printf(const char *format, ...)
 		return (-1);
 	buffsize = sizecount(format, &buffstore);
 	format = checker(format, arguments, buffsize);
+	if (format == NULL)
+		return (-1);
 	buffsize = _strlen(format);
 	write(1, format, _strlen(format));
 	free((void *)format);
