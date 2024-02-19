@@ -27,7 +27,7 @@ int _printf(const char *format, ...)
 
 	va_start(arguments, format);
 	va_start(buffstore, format);
-	if (!format || (format[0] == '%' && format[1]))
+	if (format == NULL || (format[0] == '%' && format[1]))
 		return (-1);
 	buffsize = sizecount(format, &buffstore);
 	format = checker(format, arguments, buffsize);
