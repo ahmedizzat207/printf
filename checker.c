@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdarg.h>
@@ -9,8 +8,8 @@
  * checker - The function checks for the converstion specifiers presence
  * @format: a constant pointer to character (string) that contain the basic
  * format string provaided to the _printf function
- * @arguments: a variable of type va_list that contain all the variable
- * arguments passed to the _printf function for converstion
+ * @arguments: a pointer to a variable of type va_list that contain all the
+ * variable arguments passed to the _printf function for converstion
  * @buffsize: a number of type size_t that contain the total size of the
  * resulted string to allocate space in the heap
  *
@@ -21,12 +20,14 @@
  * Return: a pointer to the final string after finishing all convertion needed
  */
 
-const char *checker(const char *format, va_list arguments, size_t buffsize)
+const char *checker(const char *format, va_list *arguments, size_t buffsize)
 {
 	char *buffer;
 	converstion spec[] = {
 		{spec_c, 'c'},
 		{spec_s, 's'},
+		{spec_di, 'd'},
+		{spec_di, 'i'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
@@ -42,7 +43,7 @@ const char *checker(const char *format, va_list arguments, size_t buffsize)
 		{
 			if (format[ccount + 1] == spec[scount].specifier)
 			{
-				if (scount != 2)
+				if (scount < 4)
 					buffcount = spec[scount].specfunc(buffer, arguments, buffcount);
 				else
 					buffcount = spec_per(buffer, buffcount);

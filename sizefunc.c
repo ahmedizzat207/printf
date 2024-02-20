@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdarg.h>
 #include "main.h"
 
@@ -37,4 +38,26 @@ size_t sizeof_c(va_list *buffsize)
 
 	size = (char)va_arg(*buffsize, int);
 	return (sizeof(size) - 2);
+}
+
+
+/**
+ * sizeof_d - The function calculates the number of digits in the integer to
+ * therefore convert it to a string
+ * @buffsize: a pointer to a variable of type va_list that contain the integer
+ * to calculate it's digits
+ *
+ * Return: a number of type size_t that contain the number of digit of the
+ * specific integer
+ */
+
+size_t sizeof_di(va_list *buffsize)
+{
+	int integer;
+	int exponent;
+
+	integer = va_arg(*buffsize, int);
+	for (exponent = 9; exponent  && !(integer / _pow(10, exponent)); exponent--)
+		;
+	return (exponent - 1);
 }

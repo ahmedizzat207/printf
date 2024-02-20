@@ -30,7 +30,9 @@ int _printf(const char *format, ...)
 	if (format == NULL || (format[0] == '%' && !format[1]))
 		return (-1);
 	buffsize = sizecount(format, &buffstore);
-	format = checker(format, arguments, buffsize);
+	va_end(buffstore);
+	format = checker(format, &arguments, buffsize);
+	va_end(arguments);
 	if (format == NULL)
 		return (-1);
 	buffsize = _strlen(format);

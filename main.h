@@ -6,15 +6,17 @@
 
 
 int _printf(const char *format, ...);
-const char *checker(const char *format, va_list arguments, size_t buffsize);
+const char *checker(const char *format, va_list *arguments, size_t buffsize);
 size_t sizecount(const char *format, va_list *buffsize);
-int spec_c(char *buffer, va_list arguments, int buffcount);
-int spec_s(char *buffer, va_list arguments, int buffcount);
+int spec_c(char *buffer, va_list *arguments, int buffcount);
+int spec_s(char *buffer, va_list *arguments, int buffcount);
+int spec_di(char *buffer, va_list *arguments, int buffcount);
 int spec_per(char *buffer, int buffcount);
 size_t sizeof_s(va_list *buffsize);
 size_t sizeof_c(va_list *buffsize);
+size_t sizeof_di(va_list *buffsize);
 size_t _strlen(const char *format);
-
+long int _pow(int basic, int power);
 
 
 /**
@@ -33,7 +35,7 @@ size_t _strlen(const char *format);
 
 typedef struct converstion
 {
-	int (*specfunc)(char *, va_list, int);
+	int (*specfunc)(char *, va_list *, int);
 	char specifier;
 } converstion;
 

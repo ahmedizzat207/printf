@@ -7,17 +7,17 @@
  * argument value
  * @buffer: a pointer to a character (string) that contain the string format
  * passed to _printf function until the converstion specifier
- * @arguments: a variable of the type va_list that contains the variable
- * arguments passed to _printf as to replace converstion specifiers
+ * @arguments: a pointer to a variable of the type va_list that contains the
+ * variable arguments passed to _printf as to replace converstion specifiers
  * @buffcount: an integer contains the buffer characters count
  *
  * Return: an integer contains the last buffer character count after replacing
  * the converstion specifier with it's corresponding value
  */
 
-int spec_c(char *buffer, va_list arguments, int buffcount)
+int spec_c(char *buffer, va_list *arguments, int buffcount)
 {
-	buffer[buffcount] = (char)va_arg(arguments, int);
+	buffer[buffcount] = (char)va_arg(*arguments, int);
 	buffcount++;
 	return (buffcount);
 }
@@ -36,16 +36,45 @@ int spec_c(char *buffer, va_list arguments, int buffcount)
  * the converstion specifier with it's corresponding value
  */
 
-int spec_s(char *buffer, va_list arguments, int buffcount)
+int spec_s(char *buffer, va_list *arguments, int buffcount)
 {
 	char *string;
 	int strcount;
 
-	string = va_arg(arguments, char *);
+	string = va_arg(*arguments, char *);
 	if (string == NULL)
 		string = "(null)";
 	for (strcount = 0; string[strcount]; strcount++, buffcount++)
 		buffer[buffcount] = string[strcount];
+	return (buffcount);
+}
+
+
+/**
+ * spec_d - The function calculate the number of digits in an integer
+ * @buffer: a pointer to a character (string) that contain the string format
+ * passed to _printf function until the converstion specifier
+ * @arguments: a pointer to a variable of the type va_list that contains the
+ * variable arguments passed to _printf as to replace converstion specifiers
+ * @buffcount: an integer contains the buffer characters count
+ *
+ * Return: an integer contains the last buffer character count after replacing
+ * the percentage sign
+ */
+
+int spec_di(char *buffer, va_list *arguments, int buffcount)
+{
+	int integer, exponent;
+
+	integer = va_arg(*arguments, int);
+	for (exponent = 9; exponent > 0; exponent--)
+	{
+		if (integer / _pow(10, exponent))
+		{
+			for (; exponent >= 0; exponent--, buffcount++)
+				buffer[buffcount] = (((integer / _pow(10, exponent)) % 10) + 48);
+		}
+	}
 	return (buffcount);
 }
 
@@ -65,23 +94,4 @@ int spec_per(char *buffer, int buffcount)
 	buffer[buffcount] = '%';
 	buffcount++;
 	return (buffcount);
-}
-
-
-/**
- * _strlen - The function count the passed string length
- * @format: a pointer to character (string) to calculate it's length
- *
- * Return: an integer of type (size_t) containing the string length
- */
-
-size_t _strlen(const char *format)
-{
-	size_t count;
-
-	for (count = 0; format[count]; count++)
-		;
-	if (count == 0)
-		return (1);
-	return (count);
 }

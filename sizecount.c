@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include "main.h"
@@ -23,6 +22,8 @@ size_t sizecount(const char *format, va_list *buffsize)
 	counter spsize[] = {
 		{sizeof_c, 'c'},
 		{sizeof_s, 's'},
+		{sizeof_di, 'd'},
+		{sizeof_di, 'i'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
@@ -34,7 +35,7 @@ size_t sizecount(const char *format, va_list *buffsize)
 		{
 			if (format[ccount + 1] == spsize[scount].specifier)
 			{
-				if (scount < 2)
+				if (scount < 4)
 					buffcount += spsize[scount].specfunc(buffsize);
 				else
 					buffcount--;
