@@ -42,7 +42,7 @@ size_t sizeof_c(va_list *buffsize)
 
 
 /**
- * sizeof_d - The function calculates the number of digits in the integer to
+ * sizeof_di - The function calculates the number of digits in the integer to
  * therefore convert it to a string
  * @buffsize: a pointer to a variable of type va_list that contain the integer
  * to calculate it's digits
@@ -54,15 +54,15 @@ size_t sizeof_c(va_list *buffsize)
 size_t sizeof_di(va_list *buffsize)
 {
 	long int integer;
-	int exponent;
+	int exp;
 
 	integer = va_arg(*buffsize, int);
-	for (exponent = 9; exponent >= 0  && !(integer / _pow(10, exponent)); exponent--)
+	for (exp = 9; exp >= 0  && !(integer / _pow(10, exp)); exp--)
 		;
 	if (integer < 0)
-		return (exponent);
+		return (exp);
 	else if (integer == 0)
 		return (-1);
 	else
-		return (exponent - 1);
+		return (exp - 1);
 }
