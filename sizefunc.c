@@ -53,11 +53,16 @@ size_t sizeof_c(va_list *buffsize)
 
 size_t sizeof_di(va_list *buffsize)
 {
-	int integer;
+	long int integer;
 	int exponent;
 
 	integer = va_arg(*buffsize, int);
-	for (exponent = 9; exponent  && !(integer / _pow(10, exponent)); exponent--)
+	for (exponent = 9; exponent >= 0  && !(integer / _pow(10, exponent)); exponent--)
 		;
-	return (exponent - 1);
+	if (integer < 0)
+		return (exponent);
+	else if (integer == 0)
+		return (-1);
+	else
+		return (exponent - 1);
 }

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stddef.h>
 #include <stdarg.h>
 #include "main.h"
@@ -51,7 +52,7 @@ int spec_s(char *buffer, va_list *arguments, int buffcount)
 
 
 /**
- * spec_d - The function calculate the number of digits in an integer
+ * spec_di - The function calculate the number of digits in an integer
  * @buffer: a pointer to a character (string) that contain the string format
  * passed to _printf function until the converstion specifier
  * @arguments: a pointer to a variable of the type va_list that contains the
@@ -64,16 +65,28 @@ int spec_s(char *buffer, va_list *arguments, int buffcount)
 
 int spec_di(char *buffer, va_list *arguments, int buffcount)
 {
-	int integer, exponent;
+	long int integer;
+	int exponent;
 
-	integer = va_arg(*arguments, int);
-	for (exponent = 9; exponent > 0; exponent--)
+	integer = (long int)va_arg(*arguments, int);
+	for (exponent = 9; exponent >= 0; exponent--)
 	{
+		if (integer < 0)
+		{
+			integer = -integer;
+			buffer[buffcount] = '-';
+			buffcount++;
+		}
 		if (integer / _pow(10, exponent))
 		{
 			for (; exponent >= 0; exponent--, buffcount++)
 				buffer[buffcount] = (((integer / _pow(10, exponent)) % 10) + 48);
 		}
+	}
+	if (integer == 0)
+	{
+		buffer[buffcount] = '0';
+		buffcount++;
 	}
 	return (buffcount);
 }

@@ -1,7 +1,8 @@
-#include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdarg.h>
+#include "main.h"
 
 
 /**
@@ -51,8 +52,15 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 				scount = -1;
 			}
 		}
-		buffer[buffcount] = format[ccount];
-		buffcount++;
+		if (format[ccount])
+		{
+			buffer[buffcount] = format[ccount];
+			buffcount++;
+		}
+		else
+		{
+			break;
+		}
 	}
 	return (buffer);
 }
