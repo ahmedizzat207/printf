@@ -52,7 +52,8 @@ int spec_s(char *buffer, va_list *arguments, int buffcount)
 
 
 /**
- * spec_di - The function calculate the number of digits in an integer
+ * spec_di - The function calculate the number of digits in an integer and
+ * write the number in the buffer
  * @buffer: a pointer to a character (string) that contain the string format
  * passed to _printf function until the converstion specifier
  * @arguments: a pointer to a variable of the type va_list that contains the
@@ -60,7 +61,7 @@ int spec_s(char *buffer, va_list *arguments, int buffcount)
  * @buffcount: an integer contains the buffer characters count
  *
  * Return: an integer contains the last buffer character count after replacing
- * the percentage sign
+ * the integer converstion specifier
  */
 
 int spec_di(char *buffer, va_list *arguments, int buffcount)
@@ -91,6 +92,43 @@ int spec_di(char *buffer, va_list *arguments, int buffcount)
 	return (buffcount);
 }
 
+
+/**
+ * spec_b - The function calculate and write the binary number converted from
+ * an unsigned integer in the buffer
+ * @buffer: a pointer to a character (string) that contain the string that
+ * should be printed by _printf until the converstion specifier
+ * @arguments: a pointer to a variable of type va_list that contain the
+ * variable arguments passed to _printf replace converstion specifier
+ * @buffcount: an integer that contain the buffer characters count
+ *
+ * Return: an integer to the last number of characters modified by the function
+ */
+
+int spec_b(char *buffer, va_list *arguments, int buffcount)
+{
+	unsigned long int integer;
+	int exp;
+
+	integer = va_arg(*arguments, unsigned int);
+	if (integer == 0)
+	{
+		buffer[buffcount] = '0';
+		buffcount++;
+	}
+	for (exp = 31; exp >= 0; exp--)
+	{
+		if (integer / _pow(2, exp))
+		{
+			for (; exp >= 0; exp--, buffcount++)
+			{
+				buffer[buffcount] = ((integer / _pow(2, exp)) + 48);
+				integer %= _pow(2, exp);
+			}
+		}
+	}
+	return (buffcount);
+}
 
 /**
  * spec_per - The function replace the double percentage signs "%%" with one

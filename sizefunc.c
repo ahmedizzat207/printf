@@ -66,3 +66,28 @@ size_t sizeof_di(va_list *buffsize)
 	else
 		return (exp - 1);
 }
+
+
+/**
+ * sizeof_b - The function calculates the number of digit in the binary number
+ * that have been converted from an unsigned int
+ * @buffsize: a pointer to a variable of type va_list that contain the variable
+ * arguments passed to _printf function
+ *
+ * Return: a number of type size_t that contain the number of digits in an
+ * unsigned integer converted to binary
+ */
+
+size_t sizeof_b(va_list *buffsize)
+{
+	long int integer;
+	int exp;
+
+	integer = va_arg(*buffsize, unsigned int);
+	for (exp = 31; exp >= 0 && !(integer / _pow(2, exp)); exp--)
+		;
+	if (integer == 0)
+		return (-1);
+	else
+		return (exp - 1);
+}
