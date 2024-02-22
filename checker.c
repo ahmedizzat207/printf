@@ -40,7 +40,7 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 	int ccount, scount, buffcount;
 
 	buffcount = 0;
-	buffer = malloc(buffsize);
+	buffer = malloc(buffsize + 1);
 	if (buffer == NULL)
 		return (NULL);
 	for (ccount = 0; format && format[ccount]; ccount++)
@@ -67,5 +67,7 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 			break;
 		}
 	}
+	if (buffer[buffcount])
+		buffer[buffcount] = '\0';
 	return (buffer);
 }

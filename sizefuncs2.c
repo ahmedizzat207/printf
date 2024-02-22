@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdarg.h>
 #include "main.h"
 
@@ -17,7 +18,7 @@ size_t sizeof_o(va_list *arguments)
 	int exp;
 
 	integer = va_arg(*arguments, unsigned int);
-	for (exp = 10; exp >= 0 && !(integer / _pow(8, exp)); exp--)
+	for (exp = 11; exp >= 0 && !(integer / _pow(8, exp)); exp--)
 		;
 	if (integer == 0)
 		return (-1);

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdarg.h>
 #include "main.h"
 
@@ -67,7 +68,7 @@ int spec_o(char *buffer, va_list *arguments, int buffcount)
 		buffer[buffcount] = '0';
 		buffcount++;
 	}
-	for (exp = 10; exp >= 0; exp--)
+	for (exp = 11; exp >= 0; exp--)
 	{
 		if (integer / _pow(8, exp))
 		{
@@ -78,6 +79,7 @@ int spec_o(char *buffer, va_list *arguments, int buffcount)
 			}
 		}
 	}
+	printf("buffer = %s\n", buffer);
 	return (buffcount);
 }
 
