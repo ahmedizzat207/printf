@@ -79,7 +79,6 @@ int spec_o(char *buffer, va_list *arguments, int buffcount)
 			}
 		}
 	}
-	printf("buffer = %s\n", buffer);
 	return (buffcount);
 }
 
