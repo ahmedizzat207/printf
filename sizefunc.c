@@ -91,3 +91,28 @@ size_t sizeof_b(va_list *buffsize)
 	else
 		return (exp - 1);
 }
+
+
+/**
+ * sizeof_u - The function calculates the number of digit in an unsigned
+ * integer passed to _printf function
+ * @buffsize: a pointer to a variable of type va_list that contain the variable
+ * arguments passed to _printf function
+ *
+ * Return: a number of type size_t that contain the number of digits in an
+ * unsigned integer number
+ */
+
+size_t sizeof_u(va_list *buffsize)
+{
+	long int integer;
+	int exp;
+
+	integer = va_arg(*buffsize, unsigned int);
+	for (exp = 9; exp >= 0 && !(integer / _pow(10, exp)); exp--)
+		;
+	if (integer == 0)
+		return (-1);
+	else
+		return (exp - 1);
+}

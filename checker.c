@@ -30,6 +30,10 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 		{spec_di, 'd'},
 		{spec_di, 'i'},
 		{spec_b, 'b'},
+		{spec_u, 'u'},
+		{spec_o, 'o'},
+		{spec_x, 'x'},
+		{spec_X, 'X'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
@@ -45,7 +49,7 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 		{
 			if (format[ccount + 1] == spec[scount].specifier)
 			{
-				if (scount < 5)
+				if (scount < 9)
 					buffcount = spec[scount].specfunc(buffer, arguments, buffcount);
 				else
 					buffcount = spec_per(buffer, buffcount);

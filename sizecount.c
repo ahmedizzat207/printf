@@ -25,6 +25,10 @@ size_t sizecount(const char *format, va_list *buffsize)
 		{sizeof_di, 'd'},
 		{sizeof_di, 'i'},
 		{sizeof_b, 'b'},
+		{sizeof_u, 'u'},
+		{sizeof_o, 'o'},
+		{sizeof_x, 'x'},
+		{sizeof_x, 'X'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
@@ -36,7 +40,7 @@ size_t sizecount(const char *format, va_list *buffsize)
 		{
 			if (format[ccount + 1] == spsize[scount].specifier)
 			{
-				if (scount < 5)
+				if (scount < 9)
 					buffcount += spsize[scount].specfunc(buffsize);
 				else
 					buffcount--;
