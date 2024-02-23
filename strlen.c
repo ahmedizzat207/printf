@@ -16,7 +16,7 @@ size_t _strlen(const char *format)
 	for (count = 0; format[count]; count++)
 		;
 	if (count == 0)
-		return (1);
+		return (0);
 	return (count);
 }
 
