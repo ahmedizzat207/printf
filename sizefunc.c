@@ -15,6 +15,7 @@ size_t sizeof_s(va_list *buffsize)
 {
 	char *string;
 
+	printf("Here\n");
 	string = va_arg(*buffsize, char *);
 	if (string == NULL)
 		return (_strlen("(null)"));

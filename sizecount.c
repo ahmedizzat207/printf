@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include "main.h"
@@ -29,26 +30,24 @@ size_t sizecount(const char *format, va_list *buffsize)
 		{sizeof_o, 'o'},
 		{sizeof_x, 'x'},
 		{sizeof_x, 'X'},
+		{sizeof_S, 'S'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
 
-	buffcount = 0;
-	for (ccount = 0; format && format[ccount]; ccount++)
+	for (ccount = 0, buffcount = 0; format && format[ccount]; ccount++, buffcount++)
 	{
 		for (scount = 0; format[ccount] == '%' && spsize[scount].specifier; scount++)
 		{
 			if (format[ccount + 1] == spsize[scount].specifier)
 			{
-				if (scount < 9)
+				if (spsize[scount].specifier != '%')
 					buffcount += spsize[scount].specfunc(buffsize);
 				else
 					buffcount--;
 				break;
 			}
-
 		}
-		buffcount++;
 	}
 	return (buffcount);
 }

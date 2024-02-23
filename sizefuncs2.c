@@ -51,3 +51,34 @@ size_t sizeof_x(va_list *arguments)
 	else
 		return (exp - 1);
 }
+
+
+/**
+ * sizeof_S - The function calculates the size of the string passed to the
+ * _printf function
+ * @arguments: a pointer to a variable arguments list va_list that contain
+ * the string to calculate it's length
+ *
+ * Description: The function calculates the size of the string passed to the
+ * _printf function with specific difference of changing specific characters
+ *
+ * Return: a number of type size_t that contain the number's digits to be
+ * printed by _printf function
+ */
+
+size_t sizeof_S(va_list *arguments)
+{
+	char *string;
+	int count, buffcount;
+
+
+	string = va_arg(*arguments, char *);
+	if (!string)
+		return (_strlen("(null)"));
+	for (count = 0, buffcount = 0; string && string[count] ; count++, buffcount++)
+	{
+		if ((string[count] > 0 && string[count] < 32) || string[count] >= 127)
+			buffcount += 4;
+	}
+	return (buffcount - 2);
+}

@@ -16,6 +16,7 @@ int spec_u(char *buffer, va_list *arguments, int buffcount);
 int spec_o(char *buffer, va_list *arguments, int buffcount);
 int spec_x(char *buffer, va_list *arguments, int buffcount);
 int spec_X(char *buffer, va_list *arguments, int buffcount);
+int spec_S(char *buffer, va_list *arguments, int buffcount);
 int spec_per(char *buffer, int buffcount);
 size_t sizeof_s(va_list *buffsize);
 size_t sizeof_c(va_list *buffsize);
@@ -25,6 +26,7 @@ size_t sizeof_u(va_list *buffsize);
 size_t sizeof_o(va_list *buffsize);
 size_t sizeof_x(va_list *buffsize);
 size_t sizeof_X(va_list *buffsize);
+size_t sizeof_S(va_list *buffsize);
 size_t _strlen(const char *format);
 long int _pow(int basic, int power);
 

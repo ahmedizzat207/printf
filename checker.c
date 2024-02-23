@@ -34,13 +34,14 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 		{spec_o, 'o'},
 		{spec_x, 'x'},
 		{spec_X, 'X'},
+		{spec_S, 'S'},
 		{NULL, '%'},
 		{NULL, '\0'}
 	};
 	int ccount, scount, buffcount;
 
 	buffcount = 0;
-	buffer = malloc(buffsize + 1);
+	buffer = malloc(buffsize);
 	if (buffer == NULL)
 		return (NULL);
 	for (ccount = 0; format && format[ccount]; ccount++)
@@ -49,7 +50,7 @@ const char *checker(const char *format, va_list *arguments, size_t buffsize)
 		{
 			if (format[ccount + 1] == spec[scount].specifier)
 			{
-				if (scount < 9)
+				if (spec[scount].specifier != '%')
 					buffcount = spec[scount].specfunc(buffer, arguments, buffcount);
 				else
 					buffcount = spec_per(buffer, buffcount);

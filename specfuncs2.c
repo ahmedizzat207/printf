@@ -171,3 +171,56 @@ int spec_X(char *buffer, va_list *arguments, int buffcount)
 	}
 	return (buffcount);
 }
+
+
+/**
+ * spec_S - The function write the string passed to the _printf function
+ * in the buffer
+ * @buffer: a pointer to a character (string) that contain the string which
+ * the _printf function should print
+ * @arguments: a pointer to a variable arguments list that contain the string
+ * to write in the buffer
+ * @buffcount: an integer that contain the number of the last buffer character
+ * where the function should start modifing
+ *
+ * Return: an integer that contain the number of the last modified by the
+ * function
+ */
+
+int spec_S(char *buffer, va_list *arguments, int buffcount)
+{
+	char *string;
+	int count;
+	int charcount;
+	int integer;
+	int exp;
+
+	string = va_arg(*arguments, char *);
+	if (!string)
+		return (_strlen("(null)"));
+	for (count = 0, charcount = 0; string[count]; count++, buffcount++, charcount++)
+	{
+		if (string[count] >= 32 && string[count] < 127)
+		{
+			buffer[buffcount] = string[count];
+		}
+		else
+		{
+			integer = string[count];
+			buffer[buffcount] = '\\';
+			buffcount++;
+			buffer[buffcount] = 'x';
+			buffcount++;
+			for (exp = 1; exp >= 0; exp--, buffcount++, charcount++)
+			{
+				if ((integer / _pow(16, exp)) < 10)
+					buffer[buffcount] = (integer / _pow(16, exp)) + 48;
+				else
+					buffer[buffcount] = (integer / _pow(16, exp)) + 55;
+				integer %= _pow(16, exp);
+				buffcount--;
+			}
+		}
+	}
+	return (buffcount);
+}
