@@ -218,8 +218,8 @@ int spec_S(char *buffer, va_list *arguments, int buffcount)
 				else
 					buffer[buffcount] = (integer / _pow(16, exp)) + 55;
 				integer %= _pow(16, exp);
-				buffcount--;
 			}
+			buffcount--;
 		}
 	}
 	return (buffcount);
